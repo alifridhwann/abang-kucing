@@ -28,3 +28,33 @@
 <script src="js/admin-loyalty.js"></script>
 </body>
 </html>
+
+import { supabaseClient } from './supabase.js';
+
+(async () => {
+  // 1️⃣ Pastikan login
+  const { data: authData } = await supabaseClient.auth.getUser();
+
+  if (!authData.user) {
+    location.href = 'login.html';
+    return;
+  }
+
+  // 2️⃣ Ambil role
+  const { data: profile, error } = await supabaseClient
+    .from('profiles')
+    .select('role')
+    .eq('id', authData.user.id)
+    .single();
+
+  if (error || !profile) {
+    alert('Profile tidak dijumpai');
+    location.href = 'login.html';
+    return;
+  }
+
+  // 3️⃣ Block kalau bukan admin
+  if (profile.role !== 'admin') {
+    location.href = 'customer.html';
+  }
+})();
