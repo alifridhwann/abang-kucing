@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Loyalty</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body data-role="admin">
+
+<div class="container my-5">
+  <h3>Admin – Loyalty Request</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Item</th>
+        <th>Cost</th>
+        <th>Status</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="redeemTable"></tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/admin-loyalty.js"></script>
+</body>
+</html>

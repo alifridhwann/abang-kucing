@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loyalty | Abang Kucing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-light shadow-sm">
+  <div class="container">
+    <span class="navbar-brand abang-kucing-logo">
+      <span class="abang">Abang</span><span class="kucing">Kucing</span>
+    </span>
+    <a href="customer.html" class="btn btn-outline-secondary btn-sm">Dashboard</a>
+  </div>
+</nav>
+
+<div class="container my-5" style="max-width:600px">
+
+  <div class="card shadow-sm p-4 text-center mb-4">
+    <small class="text-muted">Your Loyalty Points</small>
+    <h1 id="pointBalance">0</h1>
+  </div>
+
+  <div class="card shadow-sm p-4">
+    <h5 class="mb-3">Rewards</h5>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">🎁 Free Grooming – 300 pts</li>
+      <li class="list-group-item">🎁 Free Kutu Treatment – 150 pts</li>
+      <li class="list-group-item">🎁 Hotel 1 Night – 100 pts</li>
+    </ul>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script>
+(async () => {
+  const { data } = await supabaseClient.auth.getUser();
+  if (!data.user) return location.href = 'login.html';
+
+  const { data: point } = await supabaseClient
+    .from('loyalty_points')
+    .select('points')
+    .single();
+
+  document.getElementById('pointBalance').textContent =
+    point?.points ?? 0;
+})();
+</script>
+</body>
+</html>
