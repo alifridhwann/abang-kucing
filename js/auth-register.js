@@ -1,21 +1,22 @@
-const registerForm = document.getElementById('registerForm');
-const regEmail = document.getElementById('regEmail');
-const regPassword = document.getElementById('regPassword');
-
-registerForm.addEventListener('submit', async e => {
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const { error } =
-    await supabaseClient.auth.signUp({
-      email: regEmail.value,
-      password: regPassword.value
-    });
+  const errorBox = document.getElementById('registerError');
+  errorBox.textContent = '';
+
+  const email = regEmail.value.trim();
+  const password = regPassword.value;
+
+  const { error } = await supabaseClient.auth.signUp({
+    email,
+    password
+  });
 
   if (error) {
-    alert(error.message);
+    errorBox.textContent = error.message;
     return;
   }
 
-  alert('Daftar berjaya. Sila login.');
+  // Success
   location.href = 'login.html';
 });
