@@ -14,7 +14,7 @@ const resetData = JSON.parse(localStorage.getItem('passwordReset'));
 
 if (!resetData || resetData.token !== token || Date.now() > resetData.expires) {
   alert('Link reset tidak sah atau telah tamat');
-  location.href = 'login.html';
+    go('login');
 }
 
 document.getElementById('resetForm').onsubmit = async (e) => {
@@ -34,5 +34,5 @@ document.getElementById('resetForm').onsubmit = async (e) => {
   localStorage.removeItem('passwordReset');
 
   alert('Password berjaya ditukar');
-  location.href = 'login.html';
+  go('login');
 };

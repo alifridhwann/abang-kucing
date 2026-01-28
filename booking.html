@@ -4,71 +4,234 @@
   <meta charset="UTF-8">
   <title>Booking | Abang Kucing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3F51B5">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/pickerjs/dist/picker.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-<nav class="navbar navbar-light shadow-sm">
-  <div class="container">
-    <span class="navbar-brand abang-kucing-logo">
-      <span class="abang">Abang</span><span class="kucing">Kucing</span>
-    </span>
-    <a href="customer.html" class="btn btn-outline-secondary btn-sm">Dashboard</a>
+<header class="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a class="ak-back" href="customer" aria-label="Kembali">
+      <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+        <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </a>
+    <div class="ak-title">
+      <span class="abang-kucing-logo ak-logo">
+        <span class="abang">Abang</span><span class="kucing">Kucing</span>
+      </span>
+      <span class="ak-title-sub">Tempahan</span>
+    </div>
+    <div class="ak-spacer"></div>
   </div>
-</nav>
+</header>
 
-<div class="container my-5" style="max-width:700px">
+<main class="container ak-page" style="max-width:520px">
+  <form id="bookingForm" class="ak-form">
 
-  <div class="mb-4">
-    <h4>New Booking</h4>
-    <p class="text-muted mb-0">Choose service & confirm your booking</p>
-  </div>
+    <section class="ak-card">
+      <div class="ak-section-title">Servis</div>
+      <div class="ak-segment" role="tablist" aria-label="Service">
+        <button type="button" class="ak-seg-btn active" data-service="Grooming">
+          Grooming
+        </button>
+        <button type="button" class="ak-seg-btn" data-service="Cat Hotel">
+          Cat Hotel
+        </button>
+      </div>
+      <input type="hidden" id="service" value="Grooming">
+    </section>
 
-  <form id="bookingForm" class="card p-4 shadow-sm">
+    <section class="ak-card">
+      <div class="ak-section-title">Cara Kedatangan</div>
+      <div class="ak-segment" aria-label="Cara Kedatangan">
+        <input class="ak-seg-radio" type="radio" name="arrivalMethod" id="arrivalWalkin" value="walkin" checked>
+        <label class="ak-seg-label" for="arrivalWalkin">Walk-in</label>
 
-    <label class="form-label">Service</label>
-    <select id="service" class="form-select mb-3" required>
-      <option value="">-- Select --</option>
-      <option value="Grooming">Grooming</option>
-      <option value="Cat Hotel">Cat Hotel</option>
-    </select>
+        <input class="ak-seg-radio" type="radio" name="arrivalMethod" id="arrivalPickup" value="pickup">
+        <label class="ak-seg-label" for="arrivalPickup">Pickup</label>
+      </div>
 
-    <label class="form-label">Booking Date</label>
-    <input type="date" id="date" class="form-control mb-3" required>
+      <div id="pickupBox" class="ak-muted-card d-none">
+        <div class="small text-muted">Pickup akan dibuat di</div>
+        <div id="pickupName" class="fw-semibold">—</div>
+        <div id="pickupPhone" class="text-muted small">—</div>
+        <div id="pickupAddress" class="text-muted">—</div>
+        <div id="pickupCoords" class="text-muted small">—</div>
+        <div id="pickupDistanceNote" class="text-muted small mt-2">—</div>
+      </div>
+      
+      <!-- Pickup Fee Display -->
+      <div id="pickupFeeDisplay" class="ak-pickup-fee d-none">
+        <i class="bi bi-truck"></i>
+        <span>Kos pickup: <strong>RM0.00</strong></span>
+      </div>
+    </section>
 
-    <label class="form-label">Amount (RM)</label>
-    <input type="number" id="amount" class="form-control mb-4" required>
+    <section class="ak-card">
+      <div class="ak-section-title">Tarikh Tempahan</div>
+      <div class="ak-date-wrap">
+        <input type="text" id="date" class="form-control ak-date-input" placeholder="Pilih tarikh" autocomplete="off" required>
+        <span class="ak-date-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M8 3v2M16 3v2M4 8h16M6 5h12a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </div>
+    </section>
 
-    <button class="btn btn-primary w-100">
-      Submit Booking
-    </button>
+    <section id="groomingFields">
+      <section class="ak-card">
+        <div class="ak-row-between">
+          <div class="ak-section-title mb-0">Maklumat Kucing</div>
+          <button type="button" id="addCatBtn" class="ak-link-btn">
+            + Tambah kucing
+          </button>
+        </div>
+        <div class="ak-helper-text small text-muted">Isi nama dan pilih jenis untuk setiap kucing.</div>
+        <div id="catsContainer" class="ak-stack"></div>
+      </section>
+
+      <!-- Add-ons are now inside each cat row with dynamic pricing -->
+
+      <section class="ak-card">
+        <div class="ak-section-title">Nota (pilihan)</div>
+        <textarea id="bookingNote" class="form-control" rows="2" placeholder="Contoh: Kucing sensitif / garang, sila slow..."></textarea>
+      </section>
+
+      <section class="ak-card">
+        <div class="ak-section-title">Ringkasan</div>
+        <div class="ak-row-between">
+          <div class="small text-muted">Jumlah</div>
+          <div class="fw-semibold">RM<span id="groomingTotal">0</span></div>
+        </div>
+        <ul id="breakdownList" class="small mb-0 mt-2"></ul>
+      </section>
+    </section>
+
+    <section id="hotelFields" class="d-none">
+      <section class="ak-card">
+        <div class="ak-section-title">Maklumat Penginapan</div>
+        
+        <div class="mb-3">
+          <label class="form-label">Bilangan Kucing</label>
+          <div class="ak-stepper">
+            <button type="button" class="ak-stepper-btn" id="hotelCatMinus">−</button>
+            <input type="number" id="hotelCatCount" class="ak-stepper-input" value="1" min="1" max="10" readonly>
+            <button type="button" class="ak-stepper-btn" id="hotelCatPlus">+</button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Bilangan Malam</label>
+          <div class="ak-stepper">
+            <button type="button" class="ak-stepper-btn" id="hotelNightMinus">−</button>
+            <input type="number" id="hotelNightCount" class="ak-stepper-input" value="1" min="1" max="30" readonly>
+            <button type="button" class="ak-stepper-btn" id="hotelNightPlus">+</button>
+          </div>
+        </div>
+
+        <div class="ak-price-info">
+          <i class="bi bi-info-circle"></i>
+          <span>RM15/malam (1 kucing) + RM5/kucing tambahan per malam</span>
+        </div>
+        
+        <div class="ak-hotel-disclaimer mt-3">
+          <div class="ak-disclaimer-title">
+            <i class="bi bi-exclamation-triangle"></i>
+            Perhatian
+          </div>
+          <ul class="ak-disclaimer-list">
+            <li>Pasir kucing sahaja disediakan</li>
+            <li>Makanan <strong>tidak</strong> disediakan untuk mengelakkan masalah cirit birit akibat perubahan makanan mendadak</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="ak-card">
+        <div class="ak-section-title">Ringkasan Hotel</div>
+        <div id="hotelBreakdown" class="small text-muted mb-2"></div>
+        <div class="ak-row-between">
+          <div class="fw-semibold">Jumlah</div>
+          <div class="fw-semibold">RM<span id="hotelTotal">15</span></div>
+        </div>
+      </section>
+
+      <input type="hidden" id="amount" value="15">
+    </section>
+
+    <input type="hidden" id="computedAmount" value="0">
+
+    <div class="ak-bottom-spacer"></div>
+
+    <div class="ak-bottom-bar">
+      <div class="ak-bottom-info">
+        <div class="small text-muted"><span id="summaryCount">0</span> kucing</div>
+        <div class="fw-semibold">Total: RM<span id="summaryTotal">0</span></div>
+      </div>
+      <button type="submit" class="ak-continue-btn">Teruskan</button>
+    </div>
 
   </form>
+</main>
+
+<!-- Wheel Date Picker (mobile/touch) -->
+<div id="akDateOverlay" class="ak-overlay d-none" aria-hidden="true"></div>
+<div id="akDateSheet" class="ak-sheet d-none" role="dialog" aria-modal="true" aria-label="Pilih tarikh">
+  <div class="ak-sheet-header">
+    <button type="button" id="akDateCancel" class="ak-sheet-btn">Batal</button>
+    <div class="ak-sheet-title">Pilih tarikh</div>
+    <button type="button" id="akDateDone" class="ak-sheet-btn ak-sheet-btn-primary">Siap</button>
+  </div>
+
+  <div class="ak-wheel">
+    <div class="ak-wheel-col">
+      <div class="ak-wheel-label">Hari</div>
+      <div class="ak-wheel-list" id="akWheelDay" aria-label="Hari"></div>
+    </div>
+    <div class="ak-wheel-col">
+      <div class="ak-wheel-label">Bulan</div>
+      <div class="ak-wheel-list" id="akWheelMonth" aria-label="Bulan"></div>
+    </div>
+    <div class="ak-wheel-col">
+      <div class="ak-wheel-label">Tahun</div>
+      <div class="ak-wheel-list" id="akWheelYear" aria-label="Tahun"></div>
+    </div>
+    <div class="ak-wheel-highlight" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- Map Modal for Pickup Location -->
+<div id="pickupMapModal" class="ak-map-modal d-none">
+  <div class="ak-map-modal-content">
+    <div class="ak-map-modal-header">
+      <h3>Pilih Lokasi Pickup</h3>
+      <button type="button" id="pickupMapClose" class="ak-map-close">&times;</button>
+    </div>
+    <div id="pickupMapContainer" class="ak-map-container"></div>
+    <div class="ak-map-modal-footer">
+      <button type="button" id="pickupMapCancel" class="btn btn-outline-secondary">Batal</button>
+      <button type="button" id="pickupMapConfirm" class="btn ak-btn-primary" disabled>Sahkan Lokasi</button>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/supabase.js"></script>
-<script>
-document.getElementById('bookingForm').addEventListener('submit', async e => {
-  e.preventDefault();
-
-  const { data } = await supabaseClient.auth.getUser();
-  if (!data.user) return location.href = 'login.html';
-
-  const { error } = await supabaseClient.from('bookings').insert({
-    user_id: data.user.id,
-    service: service.value,
-    amount: parseInt(amount.value),
-    status: 'pending'
-  });
-
-  if (error) return alert(error.message);
-
-  alert('Booking submitted');
-  location.href = 'customer.html';
-});
-</script>
+<script src="js/nav.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/pwa.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://unpkg.com/pickerjs/dist/picker.min.js"></script>
+<script src="js/booking.js"></script>
 </body>
 </html>

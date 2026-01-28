@@ -3,7 +3,7 @@
     await supabaseClient.from('bookings').select('*');
 
   if (error) {
-    alert(error.message);
+    toast.error(error.message);
     return;
   }
 

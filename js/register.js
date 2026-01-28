@@ -31,5 +31,5 @@ document.getElementById('registerForm').onsubmit = async (e) => {
 
   localStorage.setItem('users', JSON.stringify(users));
   alert('Pendaftaran berjaya');
-  location.href = 'login.html';
+  go('login');
 };

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Fabulous Care Shampoo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3F51B5"/>
+      <stop offset="1" stop-color="#F4B400"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="512" height="512" rx="96" fill="url(#bg)"/>
+  <rect x="46" y="46" width="420" height="420" rx="84" fill="rgba(255,255,255,0.92)"/>
+  <g fill="#222222" font-family="system-ui, -apple-system, Segoe UI, Arial, sans-serif" text-anchor="middle">
+    <text x="256" y="225" font-size="34" font-weight="800">Fabulous Care</text>
+    <text x="256" y="270" font-size="20" font-weight="700" fill="rgba(0,0,0,0.65)">Shampoo Partner</text>
+  </g>
+  <g transform="translate(206 306)">
+    <path d="M50 0c26 42 30 62 30 78 0 22-18 40-40 40S0 100 0 78C0 62 4 42 30 0c6-9 14-9 20 0z" fill="#3F51B5" opacity="0.9"/>
+    <circle cx="40" cy="90" r="10" fill="#F4B400"/>
+  </g>
+</svg>

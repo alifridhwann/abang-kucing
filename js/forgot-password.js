@@ -23,6 +23,6 @@ document.getElementById('forgotForm').onsubmit = (e) => {
 
   alert(
     'Reset link (demo):\n\n' +
-    'reset-password.html?token=' + token
+    'reset-password?token=' + token
   );
 };

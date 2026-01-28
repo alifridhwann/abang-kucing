@@ -1,136 +1,878 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
   <meta charset="UTF-8">
   <title>Abang Kucing | Grooming & Cat Hotel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3F51B5">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Abang Kucing Official Style -->
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Abang Kucing Style -->
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .ak-landing {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #FFFDF5 0%, #fff 50%, #FFF9E6 100%);
+    }
+
+    .ak-landing-nav {
+      padding: 1rem 0;
+      background: transparent;
+    }
+
+    .ak-landing-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .ak-landing-logo .abang {
+      color: var(--abang-blue, #3F51B5);
+    }
+
+    .ak-landing-logo .kucing {
+      color: var(--kucing-gold, #F4B400);
+    }
+
+    .ak-hero {
+      padding: 3rem 0 4rem;
+    }
+
+    .ak-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(63, 81, 181, 0.1);
+      color: var(--abang-blue, #3F51B5);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .ak-hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #222;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .ak-hero-title span {
+      color: var(--kucing-gold, #F4B400);
+    }
+
+    .ak-hero-subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+      max-width: 400px;
+    }
+
+    .ak-hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ak-btn-primary {
+      background: var(--abang-blue, #3F51B5);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .ak-btn-primary:hover {
+      background: #303f9f;
+      transform: translateY(-2px);
+      color: #fff;
+    }
+
+    .ak-btn-outline {
+      background: #fff;
+      color: #333;
+      border: 2px solid #e5e5e5;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .ak-btn-outline:hover {
+      border-color: var(--abang-blue, #3F51B5);
+      color: var(--abang-blue, #3F51B5);
+    }
+
+    .ak-hero-visual {
+      position: relative;
+    }
+
+    .ak-hero-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .ak-hero-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ak-hero-card-title i {
+      color: var(--kucing-gold, #F4B400);
+    }
+
+    .ak-feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .ak-feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .ak-feature-list li i {
+      width: 24px;
+      height: 24px;
+      background: rgba(244, 180, 0, 0.15);
+      color: var(--kucing-gold, #F4B400);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* Services Section */
+    .ak-services {
+      padding: 4rem 0;
+      background: #fff;
+    }
+
+    .ak-section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 0.5rem;
+    }
+
+    .ak-section-subtitle {
+      color: #888;
+      margin-bottom: 2.5rem;
+    }
+
+    .ak-service-card {
+      background: #FFFDF5;
+      border-radius: 16px;
+      padding: 1.75rem;
+      height: 100%;
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: all 0.2s ease;
+    }
+
+    .ak-service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+
+    .ak-service-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--kucing-gold, #F4B400);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .ak-service-icon i {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .ak-service-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 0.5rem;
+    }
+
+    .ak-service-desc {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+
+    /* CTA */
+    .ak-cta {
+      padding: 4rem 0;
+      background: #FFFDF5;
+      text-align: center;
+    }
+
+    .ak-cta-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 0.75rem;
+    }
+
+    .ak-cta-subtitle {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Partners */
+    .ak-partners {
+      padding: 4rem 0;
+      background: #fff;
+      border-top: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .ak-partner-card {
+      background: #FFFDF5;
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(0,0,0,0.04);
+      height: 100%;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .ak-partner-logo {
+      width: 76px;
+      height: 76px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      overflow: hidden;
+    }
+
+    .ak-partner-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .ak-partner-kicker {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: rgba(0,0,0,0.55);
+      margin-bottom: 2px;
+    }
+
+    .ak-partner-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #222;
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    .ak-partner-note {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 6px 0 0;
+    }
+
+    /* Location + SSM */
+    .ak-info {
+      padding: 4rem 0;
+      background: #FFFDF5;
+      border-top: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .ak-info-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.06);
+      height: 100%;
+    }
+
+    .ak-info-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    .ak-info-title i {
+      color: var(--kucing-gold, #F4B400);
+    }
+
+    .ak-map-embed {
+      width: 100%;
+      height: 320px;
+      border: 0;
+      border-radius: 14px;
+    }
+
+    .ak-info-line {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .ak-info-line i {
+      margin-top: 2px;
+      color: rgba(0,0,0,0.45);
+      flex: 0 0 auto;
+    }
+
+    .ak-info-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    /* Gallery */
+    .ak-gallery {
+      padding: 4rem 0;
+      background: #fff;
+      border-top: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .ak-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .ak-gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+      background: #FFFDF5;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.05);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .ak-gallery-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.08);
+    }
+
+    .ak-gallery-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* If image is portrait, make tile taller + keep head visible */
+    .ak-gallery-item.is-portrait .ak-gallery-img {
+      aspect-ratio: 3 / 4;
+      object-position: center top;
+    }
+
+    /* Gallery Modal */
+    .ak-gallery-modal-img {
+      width: 100%;
+      max-height: calc(100vh - 160px);
+      object-fit: contain;
+      background: rgba(255,255,255,0.92);
+      border-radius: 18px;
+      display: block;
+    }
+
+    .ak-gallery-modal-close {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+    }
+
+    @media (max-width: 992px) {
+      .ak-gallery-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 576px) {
+      .ak-gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    /* Footer */
+    .ak-footer {
+      padding: 2rem 0;
+      background: #fff;
+      border-top: 1px solid #eee;
+    }
+
+    .ak-footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .ak-footer-copy {
+      color: #888;
+      font-size: 0.85rem;
+    }
+
+    .ak-footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .ak-footer-links a {
+      color: #666;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    .ak-footer-links a:hover {
+      color: var(--abang-blue, #3F51B5);
+    }
+
+    @media (max-width: 768px) {
+      .ak-hero-title {
+        font-size: 2rem;
+      }
+
+      .ak-hero-visual {
+        margin-top: 2rem;
+      }
+
+      .ak-footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="ak-landing">
 
-<!-- ================= NAVBAR ================= -->
-<nav class="navbar navbar-light shadow-sm">
+<!-- Navigation -->
+<nav class="ak-landing-nav">
   <div class="container">
-    <span class="navbar-brand abang-kucing-logo">
-      <span class="abang">Abang</span><span class="kucing">Kucing</span>
-    </span>
-
-    <div>
-      <a href="login.html" class="btn btn-outline-primary btn-sm me-2">
-        Login
+    <div class="d-flex justify-content-between align-items-center">
+      <a href="/" class="ak-landing-logo">
+        <span class="abang">Abang</span><span class="kucing">Kucing</span>
       </a>
-      <a href="register.html" class="btn btn-primary btn-sm">
-        Register
-      </a>
+      <div class="d-flex gap-2">
+        <a href="login" class="ak-btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">
+          Log Masuk
+        </a>
+        <a href="register" class="ak-btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">
+          Daftar
+        </a>
+      </div>
     </div>
   </div>
 </nav>
 
-<!-- ================= HERO ================= -->
-<section class="py-5">
+<!-- Hero Section -->
+<section class="ak-hero">
   <div class="container">
-    <div class="row align-items-center g-4">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="ak-hero-badge">
+          <i class="bi bi-heart-fill"></i>
+          Sayang kucing macam anak sendiri
+        </div>
 
-      <div class="col-md-6">
-        <h1 class="mb-3">
-          Trusted Grooming & Hotel<br>
-          <span class="abang">for Your</span>
-          <span class="kucing">Beloved Cats</span>
+        <h1 class="ak-hero-title">
+          Grooming & Hotel<br>
+          Untuk <span>Si Bulu Kesayangan</span>
         </h1>
 
-        <p class="text-muted mb-4">
-          Professional cat grooming and safe hotel services.
-          Loved by cat owners, trusted by families.
+        <p class="ak-hero-subtitle">
+          Kami jaga kucing anda macam kucing sendiri. Mandikan, sikatkan, bagi dia tidur nyenyak.
         </p>
 
-        <a href="booking.html" class="btn btn-primary btn-lg me-2">
-          Book Now
-        </a>
-        <a href="login.html" class="btn btn-outline-primary btn-lg">
-          Member Login
-        </a>
-      </div>
-
-      <div class="col-md-6 text-center">
-        <!-- Placeholder visual -->
-        <div class="card shadow-sm p-4">
-          <h5 class="mb-2">🐾 Why Choose Us?</h5>
-          <ul class="list-unstyled text-muted mb-0">
-            <li>✔ Gentle & experienced groomers</li>
-            <li>✔ Clean & safe cat hotel</li>
-            <li>✔ Loyalty points for every booking</li>
-            <li>✔ Easy online booking</li>
-          </ul>
+        <div class="ak-hero-buttons">
+          <a href="#gallery" class="ak-btn-primary">
+            <i class="bi bi-images"></i>
+            Gallery
+          </a>
+          <a href="#location" class="ak-btn-outline">
+            <i class="bi bi-geo-alt"></i>
+            Lokasi
+          </a>
         </div>
       </div>
 
+      <div class="col-lg-6">
+        <div class="ak-hero-visual">
+          <div class="ak-hero-card">
+            <div class="ak-hero-card-title">
+              <i class="bi bi-shield-check"></i>
+              Kenapa Pilih Kami?
+            </div>
+            <ul class="ak-feature-list">
+              <li>
+                <i class="bi bi-check2"></i>
+                Groomer berpengalaman & mesra kucing
+              </li>
+              <li>
+                <i class="bi bi-check2"></i>
+                Penginapan bersih & selamat
+              </li>
+              <li>
+                <i class="bi bi-check2"></i>
+                Kumpul mata ganjaran setiap tempahan
+              </li>
+              <li>
+                <i class="bi bi-check2"></i>
+                Perkhidmatan pickup tersedia
+              </li>
+              <li>
+                <i class="bi bi-check2"></i>
+                Tempahan online yang mudah
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ================= SERVICES ================= -->
-<section class="bg-light py-5">
+<!-- Services Section -->
+<section class="ak-services">
   <div class="container">
-
-    <div class="text-center mb-4">
-      <h3>Our Services</h3>
-      <p class="text-muted mb-0">
-        Everything your cat needs, in one place
-      </p>
+    <div class="text-center">
+      <h2 class="ak-section-title">Apa Yang Kami Buat</h2>
+      <p class="ak-section-subtitle">Semua yang kucing anda perlukan, kat sini ada</p>
     </div>
 
-    <div class="row g-3">
-
+    <div class="row g-4">
       <div class="col-md-4">
-        <div class="card shadow-sm p-4 h-100">
-          <h5>🐱 Grooming</h5>
-          <p class="text-muted mb-0">
-            Full grooming, basic cleaning, flea treatment and more.
-          </p>
+        <div class="ak-service-card">
+          <div class="ak-service-icon">
+            <i class="bi bi-droplet"></i>
+          </div>
+          <div class="ak-service-title">Grooming</div>
+          <div class="ak-service-desc">
+            Mandi, sikat bulu, potong kuku, cuci telinga. Full service.
+          </div>
         </div>
       </div>
 
       <div class="col-md-4">
-        <div class="card shadow-sm p-4 h-100">
-          <h5>🏠 Cat Hotel</h5>
-          <p class="text-muted mb-0">
-            Comfortable, clean and safe stays for your cat.
-          </p>
+        <div class="ak-service-card">
+          <div class="ak-service-icon">
+            <i class="bi bi-house-heart"></i>
+          </div>
+          <div class="ak-service-title">Cat Hotel</div>
+          <div class="ak-service-desc">
+            Nak outstation? Tinggalkan kucing kat sini. Kami jaga elok-elok.
+          </div>
         </div>
       </div>
 
       <div class="col-md-4">
-        <div class="card shadow-sm p-4 h-100">
-          <h5>🎁 Loyalty Program</h5>
-          <p class="text-muted mb-0">
-            Earn points every time and redeem exciting rewards.
-          </p>
+        <div class="ak-service-card">
+          <div class="ak-service-icon">
+            <i class="bi bi-gift"></i>
+          </div>
+          <div class="ak-service-title">Mata Ganjaran</div>
+          <div class="ak-service-desc">
+            Setiap tempahan dapat points. Kumpul dan tebus untuk diskaun.
+          </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ================= CTA ================= -->
-<section class="py-5">
-  <div class="container text-center">
-    <h4 class="mb-3">Ready to pamper your cat?</h4>
-    <a href="register.html" class="btn btn-primary btn-lg">
-      Create Free Account
+<!-- Partners Section -->
+<section class="ak-partners">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="ak-section-title">Partner Kami</h2>
+      <p class="ak-section-subtitle">Produk pilihan untuk kucing yang sihat & wangi</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="ak-partner-card">
+          <div class="ak-partner-logo">
+            <img src="img/partners/fabulous-care.png" alt="Logo Fabulous Care" loading="lazy">
+          </div>
+          <div>
+            <div class="ak-partner-kicker">Shampoo partner</div>
+            <p class="ak-partner-name">Fabulous Care Shampoo</p>
+            <p class="ak-partner-note">Untuk bulu lebih bersih, lembut & wangi.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="ak-partner-card">
+          <div class="ak-partner-logo">
+            <img src="img/partners/bitacat.png" alt="Logo Bitacat" loading="lazy">
+          </div>
+          <div>
+            <div class="ak-partner-kicker">Supplement partner</div>
+            <p class="ak-partner-name">Bitacat</p>
+            <p class="ak-partner-note">Sokongan nutrisi untuk kucing aktif & sihat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="ak-cta">
+  <div class="container">
+    <h2 class="ak-cta-title">Jom Daftar!</h2>
+    <p class="ak-cta-subtitle">Percuma je. Lepas tu boleh terus buat tempahan.</p>
+    <a href="register" class="ak-btn-primary">
+      <i class="bi bi-arrow-right"></i>
+      Daftar Sekarang
     </a>
   </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
-<footer class="py-3 text-center text-muted small">
-  © Abang Kucing · Grooming & Cat Hotel
+<!-- Location -->
+<section class="ak-info" id="location">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="ak-section-title">Lokasi</h2>
+      <p class="ak-section-subtitle">Datang terus atau cari kami di Google</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div class="ak-info-card">
+          <div class="ak-info-title">
+            <i class="bi bi-geo-alt-fill"></i>
+            Lokasi Abang Kucing Grooming & Hotel
+          </div>
+          <iframe
+            class="ak-map-embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Abang%20Kucing%20Grooming%20%26%20Hotel%2C%20No%2052-Floor%202%20Pusat%20Komersial%20Cabang%203%2C%2021100%20Kuala%20Terengganu%2C%20Terengganu&output=embed"
+            title="Peta lokasi Abang Kucing Grooming & Hotel">
+          </iframe>
+          <div class="ak-info-actions">
+            <a class="ak-btn-primary" href="https://www.google.com/maps/search/?api=1&query=Abang%20Kucing%20Grooming%20%26%20Hotel%2C%20No%2052-Floor%202%20Pusat%20Komersial%20Cabang%203%2C%2021100%20Kuala%20Terengganu%2C%20Terengganu" target="_blank" rel="noopener">
+              <i class="bi bi-google"></i>
+              Buka Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="ak-info-card">
+          <div class="ak-info-title">
+            <i class="bi bi-building-check"></i>
+            Maklumat Perniagaan
+          </div>
+
+          <div class="ak-info-line">
+            <i class="bi bi-shop"></i>
+            <div>
+              <strong>Abang Kucing Grooming & Hotel</strong><br>
+              <span style="color:#777;">Grooming & Cat Hotel</span>
+            </div>
+          </div>
+
+          <div class="ak-info-line">
+            <i class="bi bi-geo-alt"></i>
+            <div>
+              <strong>Alamat</strong><br>
+              No 52-Floor 2 Pusat Komersial Cabang 3, 21100 Kuala Terengganu, Terengganu
+            </div>
+          </div>
+
+          <div class="ak-info-line" style="margin-bottom:0;">
+            <i class="bi bi-info-circle"></i>
+            <div>
+              Tekan butang <strong>Gallery</strong> di atas untuk terus turun ke gambar-gambar kami.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="ak-gallery" id="gallery">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="ak-section-title">Gallery</h2>
+      <p class="ak-section-subtitle">Antara suasana & hasil grooming</p>
+    </div>
+
+    <div class="ak-gallery-grid">
+      <a class="ak-gallery-item" href="img/gallery/01.png">
+        <img class="ak-gallery-img" src="img/gallery/01.png" alt="Gallery 1" loading="lazy">
+      </a>
+      <a class="ak-gallery-item" href="img/gallery/02.png">
+        <img class="ak-gallery-img" src="img/gallery/02.png" alt="Gallery 2" loading="lazy">
+      </a>
+      <a class="ak-gallery-item" href="img/gallery/03.png">
+        <img class="ak-gallery-img" src="img/gallery/03.png" alt="Gallery 3" loading="lazy">
+      </a>
+      <a class="ak-gallery-item" href="img/gallery/04.png">
+        <img class="ak-gallery-img" src="img/gallery/04.png" alt="Gallery 4" loading="lazy">
+      </a>
+      <a class="ak-gallery-item" href="img/gallery/05.png">
+        <img class="ak-gallery-img" src="img/gallery/05.png" alt="Gallery 5" loading="lazy">
+      </a>
+      <a class="ak-gallery-item" href="img/gallery/06.png">
+        <img class="ak-gallery-img" src="img/gallery/06.png" alt="Gallery 6" loading="lazy">
+      </a>
+      <a class="ak-gallery-item" href="img/gallery/07.png">
+        <img class="ak-gallery-img" src="img/gallery/07.png" alt="Gallery 7" loading="lazy">
+      </a>
+      <a class="ak-gallery-item" href="img/gallery/08.png">
+        <img class="ak-gallery-img" src="img/gallery/08.png" alt="Gallery 8" loading="lazy">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Modal -->
+<div class="modal fade" id="akGalleryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content" style="background: transparent; border: 0;">
+      <div class="modal-header" style="border: 0; padding: 0 0 10px;">
+        <button type="button" class="ak-gallery-modal-close" data-bs-dismiss="modal" aria-label="Tutup">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <img id="akGalleryModalImg" class="ak-gallery-modal-img" src="" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="ak-footer">
+  <div class="container">
+    <div class="ak-footer-content">
+      <div class="ak-footer-copy">
+        © 2025 Abang Kucing Grooming &amp; Hotel
+      </div>
+      <div class="ak-footer-links">
+        <a href="login">Log Masuk</a>
+        <a href="register">Daftar</a>
+      </div>
+    </div>
+  </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  (function () {
+    const grid = document.querySelector('.ak-gallery-grid');
+    const modalEl = document.getElementById('akGalleryModal');
+    const modalImg = document.getElementById('akGalleryModalImg');
+    if (!grid || !modalEl || !modalImg || !window.bootstrap) return;
+
+    const modal = new bootstrap.Modal(modalEl, { keyboard: true });
+
+    // Mark portrait images so they render taller (avoid cropping heads)
+    function markPortrait(imgEl) {
+      const a = imgEl?.closest?.('a.ak-gallery-item');
+      if (!a) return;
+      const w = imgEl.naturalWidth || 0;
+      const h = imgEl.naturalHeight || 0;
+      if (!w || !h) return;
+      if (h / w > 1.15) a.classList.add('is-portrait');
+    }
+
+    grid.querySelectorAll('img.ak-gallery-img').forEach((imgEl) => {
+      if (imgEl.complete) {
+        markPortrait(imgEl);
+      } else {
+        imgEl.addEventListener('load', () => markPortrait(imgEl), { once: true });
+      }
+    });
+
+    grid.addEventListener('click', (e) => {
+      const a = e.target.closest('a.ak-gallery-item');
+      if (!a) return;
+      e.preventDefault();
+
+      const href = a.getAttribute('href') || '';
+      const img = a.querySelector('img');
+      const alt = img?.getAttribute('alt') || 'Gallery';
+
+      modalImg.src = href;
+      modalImg.alt = alt;
+      modal.show();
+    });
+
+    modalEl.addEventListener('hidden.bs.modal', () => {
+      // reset to stop loading / release memory
+      modalImg.src = '';
+      modalImg.alt = '';
+    });
+  })();
+</script>
+<script src="js/nav.js"></script>
+<script src="js/pwa.js"></script>
 </body>
 </html>

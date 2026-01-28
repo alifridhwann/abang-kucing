@@ -4,56 +4,103 @@
   <meta charset="UTF-8">
   <title>Profil | Abang Kucing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3F51B5">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Global Style -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-light bg-white shadow-sm">
-  <div class="container">
-    <a href="customer.html" class="text-decoration-none">
-      <span class="abang-kucing-logo">
-        <span class="abang">Abang</span><span class="kucing">Kucing</span>
-      </span>
-    </a>
-  </div>
-</nav>
+<div class="ak-app">
 
-<div class="container my-5" style="max-width:500px">
+  <!-- Header -->
+  <header class="ak-header">
+    <div class="ak-header-inner">
+      <a href="customer" class="ak-back" aria-label="Kembali">
+        <i class="bi bi-chevron-left"></i>
+      </a>
+      <div class="ak-header-title">Profil Akaun</div>
+      <div style="width:32px"></div>
+    </div>
+  </header>
 
-  <h4 class="mb-3">Profil Akaun</h4>
+  <main class="ak-content">
 
-  <form id="profileForm" class="card p-4 shadow-sm">
+    <form id="profileForm" class="ak-form-card">
 
-    <label class="form-label">Nama</label>
-    <input id="profileName" type="text"
-      class="form-control mb-3" required>
+      <div class="ak-form-group">
+        <label class="ak-form-label" for="profileName">Nama</label>
+        <input id="profileName" type="text" class="form-control" required>
+      </div>
 
-    <label class="form-label">No Telefon</label>
-    <input id="profilePhone" type="tel"
-      class="form-control mb-3"
-      placeholder="Contoh: 0132237553"
-      required>
+      <div class="ak-form-group">
+        <label class="ak-form-label" for="profilePhone">No Telefon</label>
+        <input id="profilePhone" type="tel" class="form-control" 
+          placeholder="Contoh: 0132237553" required>
+      </div>
 
-    <label class="form-label">Nama Kampung / Alamat Ringkas</label>
-    <input id="profileKampung" type="text"
-      class="form-control mb-4"
-      placeholder="Contoh: Cabang Tiga"
-      required>
+      <div class="ak-form-group">
+        <label class="ak-form-label" for="profileKampung">Alamat / Kampung</label>
+        <input id="profileKampung" type="text" class="form-control"
+          placeholder="Contoh: Cabang Tiga" required>
+      </div>
 
-    <button class="btn btn-primary w-100">
-      Simpan Profil
-    </button>
+      <div class="ak-form-group">
+        <label class="ak-form-label">Lokasi Tepat (Pinpoint)</label>
+        <div class="ak-location-box" id="locationBox">
+          <div class="ak-location-preview" id="locationPreview">
+            <i class="bi bi-geo-alt"></i>
+            <span id="locationText">Belum dipilih</span>
+          </div>
+          <button type="button" class="ak-location-btn" id="pickLocationBtn">
+            <i class="bi bi-pin-map"></i> Pilih Lokasi
+          </button>
+        </div>
+        <input type="hidden" id="profileLat">
+        <input type="hidden" id="profileLng">
+      </div>
 
-  </form>
+      <button type="submit" class="btn ak-btn-primary w-100">
+        <i class="bi bi-check-lg me-1"></i> Simpan Profil
+      </button>
+
+    </form>
+
+  </main>
 
 </div>
 
+<!-- Map Modal -->
+<div id="mapModal" class="ak-map-modal d-none">
+  <div class="ak-map-container">
+    <div class="ak-map-header">
+      <button type="button" class="ak-map-close" id="mapCloseBtn">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <span class="ak-map-title">Pilih Lokasi Rumah</span>
+      <button type="button" class="ak-map-confirm" id="mapConfirmBtn">
+        Pilih
+      </button>
+    </div>
+    <div id="map" class="ak-map"></div>
+    <div class="ak-map-hint">
+      <i class="bi bi-hand-index"></i> Tekan pada peta untuk pilih lokasi
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/supabase.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/security.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/pwa.js"></script>
 <script src="js/profile.js"></script>
 </body>
 </html>

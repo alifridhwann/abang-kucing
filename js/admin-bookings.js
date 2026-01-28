@@ -14,7 +14,7 @@ async function loadBookings() {
       .order('created_at', { ascending: false });
 
   if (error) {
-    alert(error.message);
+    toast.error(error.message);
     return;
   }
 

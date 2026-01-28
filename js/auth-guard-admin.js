@@ -1,18 +1,31 @@
+/* =====================================================
+   AUTH GUARD – ADMIN ONLY
+   ===================================================== */
+
 (async () => {
-  const { data } = await supabaseClient.auth.getSession();
-  if (!data.session) {
-    location.href = 'login.html';
+  const { data: sessionData } = await supabaseClient.auth.getSession();
+  
+  if (!sessionData?.session) {
+    goReplace('login');
     return;
   }
 
-  const { data: profile } =
-    await supabaseClient
-      .from('profiles')
-      .select('role')
-      .eq('id', data.session.user.id)
-      .single();
+  const { data: profile, error } = await supabaseClient
+    .from('profiles')
+    .select('role')
+    .eq('id', sessionData.session.user.id)
+    .maybeSingle();
 
-  if (profile.role !== 'admin') {
-    location.href = 'customer.html';
+  if (error) {
+    console.error('Auth guard error:', error.message);
+    goReplace('login');
+    return;
   }
+
+  if (!profile || profile.role !== 'admin') {
+    goReplace('customer');
+    return;
+  }
+
+  // User is admin, allow access
 })();

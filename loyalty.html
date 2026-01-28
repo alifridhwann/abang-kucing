@@ -1,56 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
   <meta charset="UTF-8">
   <title>Loyalty | Abang Kucing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3F51B5">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<nav class="navbar navbar-light shadow-sm">
-  <div class="container">
-    <span class="navbar-brand abang-kucing-logo">
-      <span class="abang">Abang</span><span class="kucing">Kucing</span>
-    </span>
-    <a href="customer.html" class="btn btn-outline-secondary btn-sm">Dashboard</a>
-  </div>
-</nav>
+<div class="ak-app">
 
-<div class="container my-5" style="max-width:600px">
+  <!-- Header -->
+  <header class="ak-header">
+    <div class="ak-header-inner">
+      <a href="customer" class="ak-back" aria-label="Kembali">
+        <i class="bi bi-chevron-left"></i>
+      </a>
+      <div class="ak-header-title">Loyalty Points</div>
+      <div style="width:32px"></div>
+    </div>
+  </header>
 
-  <div class="card shadow-sm p-4 text-center mb-4">
-    <small class="text-muted">Your Loyalty Points</small>
-    <h1 id="pointBalance">0</h1>
-  </div>
+  <main class="ak-content">
 
-  <div class="card shadow-sm p-4">
-    <h5 class="mb-3">Rewards</h5>
+    <!-- Points Balance -->
+    <div class="ak-points-card">
+      <div class="ak-points-label">Baki Points Aktif</div>
+      <div class="ak-points-value" id="pointBalance">0</div>
+    </div>
 
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">🎁 Free Grooming – 300 pts</li>
-      <li class="list-group-item">🎁 Free Kutu Treatment – 150 pts</li>
-      <li class="list-group-item">🎁 Hotel 1 Night – 100 pts</li>
-    </ul>
-  </div>
+    <!-- How it works -->
+    <div class="ak-info-box">
+      <i class="bi bi-info-circle"></i>
+      <span><strong>RM1 = 1 Point</strong> — Setiap pembelian akan dikira sebagai points</span>
+    </div>
+
+    <!-- Expiry Warning -->
+    <div id="expiryWarning" class="ak-warning-box d-none">
+      <i class="bi bi-exclamation-triangle"></i>
+      <span id="expiryWarningText"></span>
+    </div>
+
+    <!-- Points Breakdown -->
+    <section class="ak-section">
+      <h2 class="ak-section-title">Sejarah Points</h2>
+      <div id="pointsHistory" class="ak-history-list">
+        <div class="ak-empty">Loading...</div>
+      </div>
+    </section>
+
+    <!-- Rewards -->
+    <section class="ak-section">
+      <h2 class="ak-section-title">Rewards</h2>
+
+      <div class="ak-reward-list">
+        <div class="ak-reward-item">
+          <i class="bi bi-gift ak-reward-icon"></i>
+          <div class="ak-reward-info">
+            <div class="ak-reward-name">Free Grooming</div>
+            <div class="ak-reward-pts">300 pts</div>
+          </div>
+        </div>
+
+        <div class="ak-reward-item">
+          <i class="bi bi-gift ak-reward-icon"></i>
+          <div class="ak-reward-info">
+            <div class="ak-reward-name">Free Kutu Treatment</div>
+            <div class="ak-reward-pts">150 pts</div>
+          </div>
+        </div>
+
+        <div class="ak-reward-item">
+          <i class="bi bi-gift ak-reward-icon"></i>
+          <div class="ak-reward-info">
+            <div class="ak-reward-name">Hotel 1 Malam</div>
+            <div class="ak-reward-pts">100 pts</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/security.js"></script>
+<script src="js/pwa.js"></script>
 <script>
 (async () => {
   const { data } = await supabaseClient.auth.getUser();
-  if (!data.user) return location.href = 'login.html';
+  if (!data.user) return go('login');
 
-  const { data: point } = await supabaseClient
-    .from('loyalty_points')
-    .select('points')
-    .single();
+  const userId = data.user.id;
+  const now = new Date();
 
-  document.getElementById('pointBalance').textContent =
-    point?.points ?? 0;
+  // Fetch loyalty transactions
+  const { data: transactions, error } = await supabaseClient
+    .from('loyalty_transactions')
+    .select('*')
+    .eq('user_id', userId)
+    .order('earned_at', { ascending: false });
+
+  if (error) {
+    console.warn('Loyalty error:', error.message);
+    document.getElementById('pointBalance').textContent = '0';
+    document.getElementById('pointsHistory').innerHTML = '<div class="ak-empty">Tiada sejarah</div>';
+    return;
+  }
+
+  // Calculate active points (not expired)
+  let activePoints = 0;
+  let expiringPoints = 0;
+  let expiringDate = null;
+
+  const validTransactions = (transactions || []).filter(t => {
+    if (!t.expires_at) return true; // Manual points don't expire
+    const expiry = new Date(t.expires_at);
+    return expiry > now;
+  });
+
+  validTransactions.forEach(t => {
+    activePoints += t.points;
+    
+    // Check if expiring within 30 days
+    if (t.expires_at) {
+      const expiry = new Date(t.expires_at);
+      const daysUntilExpiry = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
+      
+      if (daysUntilExpiry <= 30 && daysUntilExpiry > 0) {
+        expiringPoints += t.points;
+        if (!expiringDate || expiry < expiringDate) {
+          expiringDate = expiry;
+        }
+      }
+    }
+  });
+
+  document.getElementById('pointBalance').textContent = activePoints;
+
+  // Show expiry warning if points are expiring soon
+  if (expiringPoints > 0 && expiringDate) {
+    const warningEl = document.getElementById('expiryWarning');
+    const warningTextEl = document.getElementById('expiryWarningText');
+    
+    const daysLeft = Math.ceil((expiringDate - now) / (1000 * 60 * 60 * 24));
+    warningTextEl.textContent = `${expiringPoints} points akan tamat tempoh dalam ${daysLeft} hari!`;
+    warningEl.classList.remove('d-none');
+  }
+
+  // Render points history
+  const historyEl = document.getElementById('pointsHistory');
+  
+  if (!transactions || transactions.length === 0) {
+    historyEl.innerHTML = '<div class="ak-empty">Tiada sejarah points</div>';
+    return;
+  }
+
+  const historyHtml = transactions.map(t => {
+    const earnedDate = new Date(t.earned_at);
+    const earnedStr = earnedDate.toLocaleDateString('ms-MY', {
+      day: 'numeric', month: 'short', year: 'numeric'
+    });
+
+    let statusHtml = '';
+    let statusClass = '';
+    
+    if (t.expires_at) {
+      const expiry = new Date(t.expires_at);
+      const expiryStr = expiry.toLocaleDateString('ms-MY', {
+        day: 'numeric', month: 'short', year: 'numeric'
+      });
+      
+      if (expiry <= now) {
+        statusHtml = `<span class="ak-pts-expired">Tamat tempoh</span>`;
+        statusClass = 'expired';
+      } else {
+        statusHtml = `<span class="ak-pts-expiry">Sah hingga ${escapeHtml(expiryStr)}</span>`;
+      }
+    } else {
+      statusHtml = `<span class="ak-pts-manual">Manual</span>`;
+    }
+
+    const reason = t.reason || (t.is_manual ? 'Manual credit' : 'Booking selesai');
+
+    return `
+      <div class="ak-history-item ${statusClass}">
+        <div class="ak-history-main">
+          <div class="ak-history-reason">${escapeHtml(reason)}</div>
+          <div class="ak-history-date">${escapeHtml(earnedStr)}</div>
+          ${statusHtml}
+        </div>
+        <div class="ak-history-points">+${t.points}</div>
+      </div>
+    `;
+  }).join('');
+
+  historyEl.innerHTML = historyHtml;
 })();
 </script>
 </body>

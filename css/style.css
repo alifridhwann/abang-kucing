@@ -314,3 +314,2420 @@ button:hover,
     font-size: 0.75rem;
   }
 }
+
+/* =========================================
+   BOOKING (MOBILE CARD UI) – ABANG KUCING
+   ========================================= */
+
+.ak-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  background: rgba(255, 253, 245, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.ak-topbar-inner {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ak-back {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(63, 81, 181, 0.08);
+  color: var(--abang-blue);
+  line-height: 1;
+  padding: 0;
+  text-decoration: none;
+}
+
+.ak-back svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.ak-title {
+  display: grid;
+  gap: 2px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.ak-title-sub {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+}
+
+.ak-logo {
+  font-size: 1.15rem;
+  letter-spacing: 0.2px;
+}
+
+.ak-spacer {
+  flex: 1;
+}
+
+.ak-page {
+  padding-top: 1rem;
+  padding-bottom: 0;
+}
+
+.ak-form {
+  padding-bottom: 0;
+}
+
+.ak-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.045);
+  margin-bottom: 12px;
+}
+
+.ak-section-title {
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.ak-row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ak-helper-text {
+  padding-bottom: 10px;
+}
+
+.ak-date-wrap {
+  position: relative;
+}
+
+.ak-date-input {
+  padding-right: 44px;
+}
+
+.ak-date-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: rgba(0,0,0,0.45);
+  pointer-events: none;
+}
+
+.ak-date-icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* Flatpickr theming to match Abang Kucing */
+.flatpickr-calendar {
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 18px 30px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+.flatpickr-months {
+  background: rgba(63, 81, 181, 0.08);
+}
+
+.flatpickr-months .flatpickr-month,
+.flatpickr-current-month,
+.flatpickr-weekdays {
+  color: var(--text-dark);
+}
+
+.flatpickr-weekday {
+  color: rgba(0,0,0,0.55);
+  font-weight: 700;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: var(--kucing-gold);
+  border-color: var(--kucing-gold);
+  color: #000;
+}
+
+.flatpickr-day.today {
+  border-color: rgba(63, 81, 181, 0.35);
+}
+
+.flatpickr-day:hover {
+  background: rgba(244, 180, 0, 0.18);
+  border-color: rgba(244, 180, 0, 0.18);
+}
+
+/* =========================================
+   Wheel Date Picker (mobile/touch)
+   ========================================= */
+
+.ak-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1040;
+}
+
+.ak-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1050;
+  background: #ffffff;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  box-shadow: 0 -18px 40px rgba(0,0,0,0.18);
+  padding: 10px 14px calc(14px + env(safe-area-inset-bottom, 0px));
+}
+
+.ak-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 2px 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.ak-sheet-title {
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.ak-sheet-btn {
+  border: none;
+  background: transparent;
+  font-weight: 800;
+  color: var(--abang-blue);
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+
+.ak-sheet-btn-primary {
+  background: rgba(244, 180, 0, 0.22);
+  color: #000;
+}
+
+.ak-wheel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding-top: 12px;
+}
+
+.ak-wheel-col {
+  min-width: 0;
+}
+
+.ak-wheel-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: rgba(0,0,0,0.55);
+  margin-bottom: 8px;
+}
+
+.ak-wheel-list {
+  height: 210px;
+  overflow: auto;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 72px 0; /* top/bottom to center items */
+  border-radius: 16px;
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.ak-wheel-item {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  font-weight: 800;
+  color: rgba(0,0,0,0.75);
+  user-select: none;
+}
+
+.ak-wheel-item.is-active {
+  color: #000;
+}
+
+.ak-wheel-highlight {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(12px + 0.8rem + 8px + 72px + 48px); /* label + spacing + padding + 1 row */
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid rgba(244, 180, 0, 0.55);
+  background: rgba(244, 180, 0, 0.12);
+}
+
+@media (min-width: 576px) {
+  .ak-sheet {
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 520px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+}
+
+.ak-link-btn {
+  border: none;
+  background: transparent;
+  color: var(--abang-blue);
+  font-weight: 600;
+  padding: 0;
+}
+
+/* Dashboard mini stats + actions (reuse booking look) */
+.ak-mini-stat {
+  border-radius: 14px;
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.05);
+  padding: 10px 10px;
+  text-align: center;
+}
+
+.ak-mini-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: rgba(0,0,0,0.55);
+  letter-spacing: 0.2px;
+}
+
+.ak-mini-value {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  margin-top: 2px;
+}
+
+.ak-actions-grid > [class^="col-"] {
+  display: flex;
+}
+
+.ak-actions-grid .ak-action {
+  flex: 1 1 auto;
+  min-height: 86px; /* ensure consistent button height */
+}
+
+.ak-action {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 12px 12px;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.04);
+}
+
+.ak-action:active {
+  transform: translateY(1px);
+}
+
+.ak-action-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.04);
+  color: rgba(0,0,0,0.7);
+  flex: 0 0 auto;
+}
+
+.ak-action-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.ak-action-body {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ak-action-title {
+  font-weight: 900;
+  color: var(--text-dark);
+  line-height: 1.15;
+}
+
+.ak-action-sub {
+  font-size: 0.85rem;
+  margin-top: 2px;
+  color: var(--text-muted);
+  line-height: 1.15;
+}
+
+.ak-action-chevron {
+  width: 22px;
+  height: 22px;
+  color: rgba(0,0,0,0.35);
+  flex: 0 0 auto;
+}
+
+.ak-action-chevron svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.ak-action--primary {
+  border-color: rgba(63, 81, 181, 0.20);
+  background: rgba(63, 81, 181, 0.06);
+}
+
+.ak-action--primary .ak-action-icon {
+  background: rgba(63, 81, 181, 0.12);
+  color: var(--abang-blue);
+}
+
+.ak-action--gold {
+  border-color: rgba(244, 180, 0, 0.30);
+  background: rgba(244, 180, 0, 0.10);
+}
+
+.ak-action--gold .ak-action-icon {
+  background: rgba(244, 180, 0, 0.20);
+  color: #000;
+}
+
+.ak-action--neutral .ak-action-icon {
+  background: rgba(0,0,0,0.04);
+  color: rgba(0,0,0,0.7);
+}
+
+.ak-icon-btn {
+  border: none;
+  background: rgba(0,0,0,0.04);
+  color: var(--text-muted);
+  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.ak-segment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 16px;
+  background: rgba(0,0,0,0.04);
+}
+
+.ak-seg-btn {
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: #ffffff;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.ak-seg-btn.active {
+  background: rgba(63, 81, 181, 0.10);
+  border-color: rgba(63, 81, 181, 0.25);
+  color: var(--abang-blue);
+}
+
+.ak-seg-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ak-seg-label {
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: #ffffff;
+  color: var(--text-dark);
+  font-weight: 700;
+  text-align: center;
+  user-select: none;
+}
+
+.ak-seg-radio:checked + .ak-seg-label {
+  background: rgba(244, 180, 0, 0.20);
+  border-color: rgba(244, 180, 0, 0.55);
+  color: #000;
+}
+
+.ak-muted-card {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Pickup Map Preview */
+.ak-pickup-map {
+  margin-top: 12px;
+}
+
+.ak-pickup-map-preview {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  height: 120px;
+  width: 100%;
+}
+
+.ak-pickup-map-preview .leaflet-container,
+.ak-pickup-map-preview > div {
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 10px;
+}
+
+.ak-pickup-map-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.ak-pickup-map-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ak-map-btn--edit {
+  background: #f5f5f5 !important;
+  color: #333 !important;
+  border: 1px solid #ddd !important;
+}
+
+.ak-map-btn--edit:hover {
+  background: #eee !important;
+}
+
+/* Pickup Set Location Box */
+.ak-pickup-setloc {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: #f8f9fa;
+  border: 1px dashed #ccc;
+  border-radius: 10px;
+}
+
+.ak-pickup-setloc > i {
+  font-size: 1.5rem;
+  color: #999;
+  flex-shrink: 0;
+}
+
+.ak-pickup-setloc > div {
+  flex: 1;
+}
+
+.ak-pickup-setloc strong {
+  display: block;
+  margin-bottom: 2px;
+  color: #333;
+}
+
+.ak-pickup-setloc p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.ak-pickup-setloc .ak-btn-primary {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+}
+
+/* Pickup Warning */
+.ak-pickup-warning {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: #fff3e0;
+  border: 1px solid #ffcc80;
+  border-radius: 10px;
+}
+
+.ak-pickup-warning > i {
+  color: #e65100;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.ak-pickup-warning strong {
+  color: #e65100;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.ak-pickup-warning p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0 0 8px 0;
+}
+
+.ak-pickup-warning .ak-link-btn {
+  font-size: 0.85rem;
+}
+
+/* Map Modal (Booking Page) */
+#pickupMapModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+#pickupMapModal .ak-map-modal-content {
+  background: #fff;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#pickupMapModal .ak-map-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+#pickupMapModal .ak-map-modal-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#pickupMapModal .ak-map-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+#pickupMapModal .ak-map-container {
+  height: 300px;
+  flex-shrink: 0;
+}
+
+#pickupMapModal .ak-map-modal-footer {
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid #eee;
+}
+
+#pickupMapModal .ak-map-modal-footer .btn {
+  flex: 1;
+}
+
+.ak-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.ak-cat-card .form-label {
+  margin-bottom: 6px;
+}
+
+/* Cat rows inside "Maklumat Kucing" should be flat (no nested shadow) */
+.ak-cat-card {
+  box-shadow: none;
+  border: 1px solid rgba(0,0,0,0.07);
+  background: #ffffff;
+  margin-bottom: 0; /* spacing handled by .ak-stack gap */
+}
+
+.ak-pills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.ak-pill {
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 10px 8px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.15;
+}
+
+.ak-pill-sub {
+  display: inline-block;
+  margin-top: 4px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.ak-pill.active {
+  background: rgba(244, 180, 0, 0.20);
+  border-color: rgba(244, 180, 0, 0.55);
+  color: #000;
+}
+
+/* Stepper (Cat Hotel) */
+.ak-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  max-width: 160px;
+}
+
+.ak-stepper-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.ak-stepper-btn:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.ak-stepper-btn:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.ak-stepper-btn:hover {
+  background: #f5f5f5;
+}
+
+.ak-stepper-btn:active {
+  background: #eee;
+}
+
+.ak-stepper-input {
+  width: 60px;
+  height: 44px;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  background: #fff;
+}
+
+.ak-stepper-input:focus {
+  outline: none;
+}
+
+/* Price Info Box */
+.ak-price-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #e3f2fd;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #1565c0;
+  margin-top: 12px;
+}
+
+.ak-price-info i {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ak-check-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.ak-check-row:last-of-type {
+  border-bottom: none;
+}
+
+.ak-price {
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.ak-addon-price {
+  font-weight: 600;
+  color: var(--kucing-gold, #F4B400);
+  font-size: 0.85rem;
+}
+
+.ak-addons {
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+/* Hotel Disclaimer */
+.ak-hotel-disclaimer {
+  background: #fff8e6;
+  border: 1px solid #f4b400;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.ak-disclaimer-title {
+  font-weight: 600;
+  color: #b8860b;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ak-disclaimer-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.ak-disclaimer-list li {
+  margin-bottom: 4px;
+}
+
+.ak-disclaimer-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Pickup Fee Display */
+.ak-pickup-fee {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 1px solid #a5d6a7;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  margin-top: 12px;
+}
+
+.ak-pickup-fee i {
+  font-size: 1.2rem;
+}
+
+.ak-pickup-fee strong {
+  color: #1b5e20;
+}
+
+.ak-bottom-spacer {
+  height: 92px;
+}
+
+.ak-bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  background: #ffffff;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.ak-bottom-bar > * {
+  max-width: 520px;
+}
+
+.ak-bottom-info {
+  min-width: 150px;
+}
+
+.ak-continue-btn {
+  border: none;
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-weight: 800;
+  background: rgba(244, 180, 0, 0.55);
+  color: rgba(0,0,0,0.55);
+  width: 100%;
+  max-width: 220px;
+}
+
+.ak-continue-btn.is-ready {
+  background: var(--kucing-gold);
+  color: #000;
+}
+
+.ak-continue-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* Keep it flatter (no hover jump) for this UI */
+.ak-pill:hover,
+.ak-seg-btn:hover,
+.ak-link-btn:hover,
+.ak-icon-btn:hover,
+.ak-continue-btn:hover,
+.ak-back:hover {
+  transform: none;
+}
+
+@media (min-width: 576px) {
+  .ak-bottom-bar {
+    padding-left: calc((100vw - 520px) / 2 + 14px);
+    padding-right: calc((100vw - 520px) / 2 + 14px);
+  }
+}
+
+/* =========================================
+   CUSTOMER DASHBOARD – SIMPLE & CLEAN
+   ========================================= */
+
+.ak-app {
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+/* Header */
+.ak-header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ak-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.ak-brand {
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.ak-welcome {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+.ak-btn-text {
+  background: none;
+  border: none;
+  color: var(--abang-blue);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.ak-btn-text:hover {
+  text-decoration: underline;
+}
+
+/* Content */
+.ak-content {
+  padding: 16px;
+}
+
+/* Stats */
+.ak-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ak-stat-box {
+  flex: 1;
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.ak-stat-box--gold {
+  background: #fffbeb;
+}
+
+.ak-stat-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--abang-blue);
+}
+
+.ak-stat-box--gold .ak-stat-num {
+  color: #b8860b;
+}
+
+.ak-stat-lbl {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* 4-Button Grid */
+.ak-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.ak-grid-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 20px 12px;
+  background: #f8f8f8;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.ak-grid-btn:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.ak-grid-btn:active {
+  transform: scale(0.97);
+}
+
+.ak-grid-btn--primary {
+  background: var(--kucing-gold);
+  border-color: var(--kucing-gold);
+  color: #000;
+}
+
+.ak-grid-btn--primary:hover {
+  background: #e0a800;
+  color: #000;
+}
+
+.ak-grid-icon {
+  font-size: 1.4rem;
+}
+
+.ak-grid-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Section */
+.ak-section {
+  margin-bottom: 20px;
+}
+
+.ak-section-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Empty */
+.ak-empty {
+  text-align: center;
+  padding: 32px 16px;
+  color: #999;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+.ak-empty p {
+  margin: 0;
+}
+
+/* Booking Row */
+.ak-booking-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ak-booking-row:last-child {
+  border-bottom: none;
+}
+
+.ak-booking-main {
+  min-width: 0;
+}
+
+.ak-booking-svc {
+  font-weight: 600;
+  color: #333;
+}
+
+.ak-booking-date {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+.ak-booking-side {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.ak-booking-amt {
+  font-weight: 700;
+  color: #333;
+}
+
+.ak-booking-sts {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.ak-sts--pending {
+  color: #b8860b;
+}
+
+.ak-sts--in-progress {
+  color: var(--abang-blue, #3F51B5);
+}
+
+.ak-sts--completed {
+  color: #28a745;
+}
+
+.ak-sts--confirmed {
+  color: var(--abang-blue);
+}
+
+.ak-sts--cancelled {
+  color: #dc3545;
+}
+
+/* Header Title (centered) */
+.ak-header-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* =========================================
+   LOYALTY PAGE
+   ========================================= */
+
+.ak-points-card {
+  background: linear-gradient(135deg, var(--kucing-gold), #e0a800);
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ak-points-label {
+  font-size: 0.85rem;
+  color: rgba(0,0,0,0.6);
+  font-weight: 600;
+}
+
+.ak-points-value {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #000;
+  margin-top: 4px;
+}
+
+.ak-reward-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ak-reward-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+.ak-reward-icon {
+  font-size: 1.2rem;
+  color: var(--kucing-gold);
+}
+
+.ak-reward-info {
+  flex: 1;
+}
+
+.ak-reward-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.ak-reward-pts {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* Info Box */
+.ak-info-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #e3f2fd;
+  border: 1px solid #bbdefb;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #1565c0;
+  margin-bottom: 20px;
+}
+
+.ak-info-box i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Warning Box */
+.ak-warning-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #856404;
+  margin-bottom: 20px;
+}
+
+.ak-warning-box i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Points History */
+.ak-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ak-history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+}
+
+.ak-history-item.expired {
+  opacity: 0.5;
+}
+
+.ak-history-main {
+  flex: 1;
+}
+
+.ak-history-reason {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.ak-history-date {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+.ak-history-points {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--kucing-gold, #F4B400);
+}
+
+.ak-pts-expiry {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.ak-pts-expired {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #dc3545;
+  margin-top: 4px;
+}
+
+.ak-pts-manual {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--abang-blue, #3F51B5);
+  background: rgba(63, 81, 181, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+/* =========================================
+   AUTH PAGES (Login, Register, Forgot)
+   ========================================= */
+
+.ak-auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+}
+
+.ak-auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 24px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+.ak-auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.ak-auth-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.ak-auth-tagline {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 4px;
+}
+
+.ak-auth-form .ak-form-group {
+  margin-bottom: 16px;
+}
+
+.ak-auth-form .ak-form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.ak-input-icon {
+  position: relative;
+}
+
+.ak-input-icon i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.ak-input-icon .form-control {
+  padding-left: 42px;
+}
+
+.ak-btn-gold {
+  background: var(--kucing-gold);
+  border: none;
+  color: #000;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+.ak-btn-gold:hover {
+  background: #e0a800;
+  color: #000;
+}
+
+.ak-auth-links {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.85rem;
+}
+
+.ak-auth-links a {
+  color: var(--abang-blue);
+  text-decoration: none;
+}
+
+.ak-auth-links a:hover {
+  text-decoration: underline;
+}
+
+.ak-auth-links a + a {
+  display: block;
+  margin-top: 8px;
+}
+
+/* =========================================
+   ADMIN DASHBOARD
+   ========================================= */
+
+.ak-admin {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.ak-admin-header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ak-admin-header-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ak-admin-badge {
+  display: inline-block;
+  background: var(--abang-blue);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.ak-admin-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.ak-admin-section {
+  margin-bottom: 20px;
+}
+
+.ak-admin-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 12px 0;
+}
+
+/* Analytics Grid */
+.ak-analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .ak-analytics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.ak-analytics-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #eee;
+}
+
+.ak-analytics-card i {
+  font-size: 1.5rem;
+  color: var(--abang-blue);
+  opacity: 0.8;
+}
+
+.ak-analytics-card--gold {
+  background: #fffbeb;
+  border-color: #fef3c7;
+}
+
+.ak-analytics-card--gold i {
+  color: #b8860b;
+}
+
+.ak-analytics-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #333;
+  line-height: 1;
+}
+
+.ak-analytics-label {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* Tabs */
+.ak-admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 12px;
+}
+
+.ak-admin-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+}
+
+.ak-admin-tab:hover {
+  background: #f8f8f8;
+}
+
+.ak-admin-tab.active {
+  background: var(--abang-blue);
+  border-color: var(--abang-blue);
+  color: #fff;
+}
+
+/* Card */
+.ak-admin-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+
+.ak-admin-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee;
+  background: #fafafa;
+}
+
+.ak-admin-card-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.ak-admin-card-body {
+  padding: 16px;
+}
+
+/* List */
+.ak-admin-list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.ak-admin-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ak-admin-item:last-child {
+  border-bottom: none;
+}
+
+.ak-admin-item-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.ak-admin-item-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.ak-admin-item-sub {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+.ak-admin-item-phone,
+.ak-admin-item-address {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ak-admin-item-phone i,
+.ak-admin-item-address i {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.ak-admin-item-points {
+  font-size: 0.85rem;
+  color: #f4b400;
+  font-weight: 600;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ak-admin-item-points i {
+  font-size: 0.8rem;
+}
+
+.ak-admin-item-side {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.ak-admin-item-amount {
+  font-weight: 700;
+  color: #333;
+}
+
+.ak-admin-item-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.ak-admin-item-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+.ak-btn-approve,
+.ak-btn-reject {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.ak-btn-approve {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.ak-btn-approve:hover {
+  background: #bbf7d0;
+}
+
+.ak-btn-reject {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.ak-btn-reject:hover {
+  background: #fecaca;
+}
+
+/* Map Buttons */
+.ak-map-buttons {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.ak-map-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ak-map-btn--google {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.ak-map-btn--google:hover {
+  background: #c8e6c9;
+  color: #2e7d32;
+}
+
+.ak-map-btn--waze {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.ak-map-btn--waze:hover {
+  background: #bbdefb;
+  color: #1565c0;
+}
+
+.ak-no-location {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 8px;
+}
+
+/* Admin Item Expanded */
+.ak-admin-item--expanded {
+  flex-direction: column;
+  gap: 0;
+}
+
+.ak-admin-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.ak-admin-item-details {
+  width: 100%;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #e0e0e0;
+}
+
+.ak-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.ak-detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.ak-detail-row i {
+  color: #999;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ak-detail-row a {
+  color: var(--abang-blue);
+}
+
+.ak-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.ak-badge--service {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.ak-badge--arrival {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.ak-admin-item-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ak-btn-approve-full,
+.ak-btn-reject-full {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ak-btn-approve-full {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.ak-btn-approve-full:hover {
+  background: #bbf7d0;
+}
+
+.ak-btn-reject-full {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.ak-btn-reject-full:hover {
+  background: #fecaca;
+}
+
+/* Pagination */
+.ak-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+}
+
+.ak-pagination-info {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.ak-pagination-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ak-pagination-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  color: #333;
+  cursor: pointer;
+}
+
+.ak-pagination-btn:hover:not(:disabled) {
+  background: #f0f0f0;
+}
+
+.ak-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ak-pagination-current {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* =========================================
+   PROFILE PAGE
+   ========================================= */
+
+.ak-form-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #eee;
+}
+
+.ak-form-group {
+  margin-bottom: 16px;
+}
+
+.ak-form-group:last-of-type {
+  margin-bottom: 20px;
+}
+
+.ak-form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.ak-btn-primary {
+  background: var(--abang-blue);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+.ak-btn-primary:hover {
+  background: #3646a3;
+  color: #fff;
+}
+
+/* =========================================
+   INVOICE PAGE
+   ========================================= */
+
+.ak-invoice-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #eee;
+}
+
+.ak-invoice-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ak-invoice-row:last-child {
+  border-bottom: none;
+}
+
+.ak-invoice-label {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.ak-invoice-value {
+  font-weight: 600;
+  color: #333;
+}
+
+.ak-invoice-amount {
+  font-size: 1.1rem;
+  color: var(--abang-blue);
+}
+
+.ak-empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+  opacity: 0.4;
+}
+
+/* =========================================
+   LOCATION PICKER (Map)
+   ========================================= */
+
+.ak-location-box {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.ak-location-preview {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #f8f8f8;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #666;
+  min-width: 0;
+}
+
+.ak-location-preview i {
+  color: var(--abang-blue);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.ak-location-preview span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ak-location-preview.has-location {
+  color: #333;
+  background: #e8f5e9;
+  border-color: #c8e6c9;
+}
+
+.ak-location-preview.has-location i {
+  color: #4caf50;
+}
+
+.ak-location-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--abang-blue);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ak-location-btn:active {
+  opacity: 0.9;
+}
+
+/* Map Modal */
+.ak-map-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.ak-map-container {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.ak-map-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.ak-map-title {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.ak-map-close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.ak-map-confirm {
+  padding: 8px 16px;
+  background: var(--kucing-gold);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.ak-map-confirm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ak-map {
+  height: 50vh;
+  min-height: 300px;
+}
+
+.ak-map-hint {
+  padding: 10px 16px;
+  background: #f8f8f8;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.ak-map-hint i {
+  margin-right: 4px;
+}
+
+/* Leaflet marker custom */
+.ak-marker {
+  background: var(--abang-blue);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* =========================================
+   TOAST NOTIFICATIONS
+   ========================================= */
+
+.ak-toast-container {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 90vw;
+  width: 360px;
+  pointer-events: none;
+}
+
+.ak-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #333;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.ak-toast--show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ak-toast--hide {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.ak-toast-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.ak-toast-msg {
+  flex: 1;
+  line-height: 1.3;
+}
+
+/* Success */
+.ak-toast--success {
+  background: #2e7d32;
+}
+
+.ak-toast--success .ak-toast-icon {
+  color: #a5d6a7;
+}
+
+/* Error */
+.ak-toast--error {
+  background: #c62828;
+}
+
+.ak-toast--error .ak-toast-icon {
+  color: #ef9a9a;
+}
+
+/* Info */
+.ak-toast--info {
+  background: var(--abang-blue);
+}
+
+.ak-toast--info .ak-toast-icon {
+  color: #bbdefb;
+}
+
+/* Warning */
+.ak-toast--warning {
+  background: #f57c00;
+}
+
+.ak-toast--warning .ak-toast-icon {
+  color: #ffe0b2;
+}
+
+/* =========================================
+   MODAL
+   ========================================= */
+
+.ak-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.ak-modal {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.ak-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.ak-modal-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.ak-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.ak-modal-close:hover {
+  color: #333;
+}
+
+.ak-modal-body {
+  padding: 20px;
+}
+
+.ak-modal-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 16px 20px;
+  border-top: 1px solid #eee;
+}
+
+/* =========================================
+   PWA INSTALL BANNER
+   ========================================= */
+
+.ak-pwa-banner {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 9999;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+  backdrop-filter: blur(10px);
+}
+
+.ak-pwa-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.ak-pwa-banner__text {
+  min-width: 0;
+}
+
+.ak-pwa-banner__title {
+  font-weight: 800;
+  color: #1f2937;
+  font-size: 0.95rem;
+  line-height: 1.1;
+}
+
+.ak-pwa-banner__desc {
+  margin-top: 2px;
+  font-size: 0.82rem;
+  color: rgba(31, 41, 55, 0.72);
+  line-height: 1.25;
+}
+
+.ak-pwa-banner__actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ak-pwa-btn {
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #fff;
+  color: #111827;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.ak-pwa-btn:hover {
+  background: rgba(0,0,0,0.03);
+}
+
+.ak-pwa-btn--primary {
+  background: var(--abang-blue, #3F51B5);
+  border-color: rgba(63, 81, 181, 0.35);
+  color: #fff;
+}
+
+.ak-pwa-btn--primary:hover {
+  background: #3445a8;
+}
+
+@media (min-width: 768px) {
+  .ak-pwa-banner {
+    left: auto;
+    right: 18px;
+    bottom: 18px;
+    width: 420px;
+  }
+}
+
