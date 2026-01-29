@@ -224,11 +224,11 @@
 
 </div>
 
-<!-- Add Points Modal -->
+<!-- Points Modal -->
 <div class="ak-modal-overlay d-none" id="addPointsOverlay">
   <div class="ak-modal">
     <div class="ak-modal-header">
-      <h3>Tambah Points</h3>
+      <h3 id="pointsModalTitle">Kemas Kini Points</h3>
       <button type="button" class="ak-modal-close" id="closePointsModal">&times;</button>
     </div>
     <div class="ak-modal-body">
@@ -236,6 +236,24 @@
       <div class="mb-3">
         <label class="form-label">Pelanggan</label>
         <input type="text" id="pointsUserName" class="form-control" readonly>
+        <div class="small text-muted mt-2">
+          Baki points semasa: <strong id="pointsCurrentBalance">0</strong>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Jenis</label>
+        <div class="ak-segment" style="grid-template-columns: 1fr 1fr;">
+          <input class="ak-seg-radio" type="radio" name="pointsMode" id="pointsModeAdd" value="add" checked>
+          <label class="ak-seg-label" for="pointsModeAdd">
+            <i class="bi bi-plus-circle"></i> Tambah
+          </label>
+
+          <input class="ak-seg-radio" type="radio" name="pointsMode" id="pointsModeDeduct" value="deduct">
+          <label class="ak-seg-label" for="pointsModeDeduct">
+            <i class="bi bi-dash-circle"></i> Tolak
+          </label>
+        </div>
       </div>
       <div class="mb-3">
         <label class="form-label">Jumlah Points</label>
@@ -248,7 +266,7 @@
     </div>
     <div class="ak-modal-footer">
       <button type="button" class="btn btn-secondary" id="cancelPointsBtn">Batal</button>
-      <button type="button" class="btn btn-primary" id="savePointsBtn">Tambah Points</button>
+      <button type="button" class="btn btn-primary" id="savePointsBtn">Simpan</button>
     </div>
   </div>
 </div>

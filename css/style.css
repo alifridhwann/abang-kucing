@@ -1638,6 +1638,10 @@ button:hover,
   color: var(--kucing-gold, #F4B400);
 }
 
+.ak-history-points.is-negative {
+  color: #dc3545;
+}
+
 .ak-pts-expiry {
   display: inline-block;
   font-size: 0.75rem;

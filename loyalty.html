@@ -191,7 +191,11 @@
       statusHtml = `<span class="ak-pts-manual">Manual</span>`;
     }
 
-    const reason = t.reason || (t.is_manual ? 'Manual credit' : 'Booking selesai');
+    const reason = t.reason || (t.is_manual ? 'Manual' : 'Booking selesai');
+    const pts = Number(t.points || 0);
+    const sign = pts >= 0 ? '+' : '−';
+    const absPts = Math.abs(pts);
+    const ptsClass = pts < 0 ? 'is-negative' : '';
 
     return `
       <div class="ak-history-item ${statusClass}">
@@ -200,7 +204,7 @@
           <div class="ak-history-date">${escapeHtml(earnedStr)}</div>
           ${statusHtml}
         </div>
-        <div class="ak-history-points">+${t.points}</div>
+        <div class="ak-history-points ${ptsClass}">${sign}${absPts}</div>
       </div>
     `;
   }).join('');

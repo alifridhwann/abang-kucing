@@ -45,6 +45,10 @@ const saveOrsKeyBtn = document.getElementById('saveOrsKeyBtn');
 const addPointsOverlay = document.getElementById('addPointsOverlay');
 const pointsUserId = document.getElementById('pointsUserId');
 const pointsUserName = document.getElementById('pointsUserName');
+const pointsModalTitle = document.getElementById('pointsModalTitle');
+const pointsCurrentBalance = document.getElementById('pointsCurrentBalance');
+const pointsModeAdd = document.getElementById('pointsModeAdd');
+const pointsModeDeduct = document.getElementById('pointsModeDeduct');
 const pointsAmount = document.getElementById('pointsAmount');
 const pointsReason = document.getElementById('pointsReason');
 const closePointsModal = document.getElementById('closePointsModal');
@@ -653,6 +657,10 @@ function setupSettings() {
   closePointsModal?.addEventListener('click', closePointsModalFn);
   cancelPointsBtn?.addEventListener('click', closePointsModalFn);
   savePointsBtn?.addEventListener('click', saveManualPoints);
+
+  // Update UI when switching add/deduct
+  pointsModeAdd?.addEventListener('change', updatePointsModalUi);
+  pointsModeDeduct?.addEventListener('change', updatePointsModalUi);
   
   // Close modal on overlay click
   addPointsOverlay?.addEventListener('click', (e) => {
@@ -830,6 +838,16 @@ function openAddPointsModal(userId, userName) {
   if (pointsUserName) pointsUserName.value = userName;
   if (pointsAmount) pointsAmount.value = '';
   if (pointsReason) pointsReason.value = '';
+
+  // Default to "add"
+  if (pointsModeAdd) pointsModeAdd.checked = true;
+
+  // Show current active points (used for max when deduct)
+  const current = allCustomers.find(c => c.id === userId)?.points ?? 0;
+  if (pointsCurrentBalance) pointsCurrentBalance.textContent = String(current);
+  addPointsOverlay.dataset.currentPoints = String(current);
+
+  updatePointsModalUi();
   
   addPointsOverlay.classList.remove('d-none');
 }
@@ -838,10 +856,48 @@ function closePointsModalFn() {
   addPointsOverlay?.classList.add('d-none');
 }
 
+function getPointsMode() {
+  return pointsModeDeduct?.checked ? 'deduct' : 'add';
+}
+
+function getCurrentPointsFromModal() {
+  const raw = addPointsOverlay?.dataset?.currentPoints;
+  const n = parseInt(raw || '0', 10);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function updatePointsModalUi() {
+  const mode = getPointsMode();
+  const current = getCurrentPointsFromModal();
+
+  if (pointsModalTitle) {
+    pointsModalTitle.textContent = mode === 'deduct' ? 'Tolak Points' : 'Tambah Points';
+  }
+
+  if (savePointsBtn) {
+    savePointsBtn.textContent = mode === 'deduct' ? 'Tolak Points' : 'Tambah Points';
+  }
+
+  if (pointsAmount) {
+    pointsAmount.max = String(mode === 'deduct' ? Math.min(10000, Math.max(0, current)) : 10000);
+    if (mode === 'deduct' && current <= 0) {
+      pointsAmount.value = '';
+    }
+  }
+
+  if (pointsReason) {
+    pointsReason.placeholder = mode === 'deduct'
+      ? 'Contoh: Claim manual oleh admin'
+      : 'Contoh: Bonus tahun baru';
+  }
+}
+
 async function saveManualPoints() {
   const userId = pointsUserId?.value;
   const amount = parseInt(pointsAmount?.value, 10);
-  const reason = pointsReason?.value?.trim() || 'Manual credit oleh admin';
+  const mode = getPointsMode();
+  const current = getCurrentPointsFromModal();
+  const reason = pointsReason?.value?.trim() || (mode === 'deduct' ? 'Manual claim oleh admin' : 'Manual credit oleh admin');
   
   if (!userId) {
     toast.error('User tidak sah');
@@ -854,15 +910,26 @@ async function saveManualPoints() {
   }
   
   if (amount > 10000) {
-    toast.warning('Maksimum 10,000 points sekali tambah');
+    toast.warning('Maksimum 10,000 points sekali transaksi');
     return;
+  }
+
+  if (mode === 'deduct') {
+    if (current <= 0) {
+      toast.warning('Pelanggan tiada baki points untuk ditolak');
+      return;
+    }
+    if (amount > current) {
+      toast.warning(`Jumlah melebihi baki points (maks: ${current})`);
+      return;
+    }
   }
   
   const { error } = await supabaseClient
     .from('loyalty_transactions')
     .insert({
       user_id: userId,
-      points: amount,
+      points: mode === 'deduct' ? -amount : amount,
       reason: reason,
       earned_at: new Date().toISOString(),
       expires_at: null, // Manual points don't expire
@@ -870,11 +937,11 @@ async function saveManualPoints() {
     });
   
   if (error) {
-    toast.error('Gagal menambah points: ' + error.message);
+    toast.error((mode === 'deduct' ? 'Gagal tolak points: ' : 'Gagal menambah points: ') + error.message);
     return;
   }
   
-  toast.success(`${amount} points berjaya ditambah!`);
+  toast.success(mode === 'deduct' ? `${amount} points berjaya ditolak!` : `${amount} points berjaya ditambah!`);
   closePointsModalFn();
   await loadCustomers(); // Refresh to show updated points
 }
