@@ -13,7 +13,7 @@ Dokumen ini untuk rekod perubahan yang dibuat pada sistem (untuk dimaklumkan kep
 ### New: Ejen WhatsApp untuk tempahan grooming (draf)
 - **Apa**: Workflow Kapso dengan pembantu AI Claude yang jawab soalan grooming dalam BM, kumpul butiran tempahan dan serahkan ringkasan kepada staf untuk sahkan slot. Status draf; trigger pada nombor Sandbox sahaja (tidak aktif).
 - **Fail**: `workflows/grooming-booking-agent/` (`system-prompt.md`, `build.mjs`, `workflow.json`, `definition.json`, `README.md`), `.gitignore`
-- **Nota**: Belum dipasang ke Kapso: perlu akses tulis workflow. Kadar pickup lebih 8km ikut owner (RM15), berbeza dengan kod booking web (RM10 + RM1.20/km).
+- **Nota**: Belum dipasang ke Kapso: perlu akses tulis workflow. Data ejen hanya dari chat WhatsApp dan jawapan owner; data website tidak digunakan (keputusan owner).
 
 ### Major Enhancement: Addon Pricing by Cat Type
 - **Apa**: Add-on sekarang ada harga berbeza ikut jenis kucing:
